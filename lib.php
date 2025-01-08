@@ -2,6 +2,7 @@
 
 $base_dir = "/disk2/photos";
 $base_dir = "/media/frc/save_20240708/sauvegarde/maison/photos";
+$base_dir = "/home/frc/Images";
 
 function get_directories_infos($dir) {
 
@@ -25,10 +26,16 @@ function get_directories_infos($dir) {
                 if (is_dir($dir . "/.thumbnails/")==false) {
                     mkdir($dir . "/.thumbnails");
                 }
-                $thumb = new Imagick($dir . "/" . $v);
-                // $thumb->resizeImage(50,50,Imagick::FILTER_LANCZOS,1);
-                $thumb->thumbnailImage(150, 150, true);
-                $thumb->writeImage($dir . "/.thumbnails/" . $v);
+                try {
+
+                    $thumb = new Imagick($dir . "/" . $v);
+                    // $thumb->resizeImage(50,50,Imagick::FILTER_LANCZOS,1);
+                    $thumb->thumbnailImage(150, 150, true);
+                    $thumb->writeImage($dir . "/.thumbnails/" . $v);
+                }
+                catch (Exception $er) {
+                    
+                }
 
             }
         }
